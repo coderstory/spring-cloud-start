@@ -22,3 +22,8 @@ spring:
         max-active: 8
         max-wait: -1
         max-idle: 500
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
