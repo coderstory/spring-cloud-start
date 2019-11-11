@@ -1,6 +1,7 @@
 package cn.coderstory.springboot.start.controller;
 
 import cn.coderstory.springboot.start.configure.TestConfigBean;
+import cn.coderstory.springboot.start.feign.UserApi;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.ServiceInstance;
@@ -17,11 +18,13 @@ public class HomeController {
     TestConfigBean bean;
     RestTemplate template;
     LoadBalancerClient loadBalancerClient;
+    UserApi userApi;
 
-    public HomeController(TestConfigBean bean, RestTemplate template, LoadBalancerClient loadBalancerClient) {
+    public HomeController(TestConfigBean bean, RestTemplate template, LoadBalancerClient loadBalancerClient, UserApi userApi) {
         this.bean = bean;
         this.template = template;
         this.loadBalancerClient = loadBalancerClient;
+        this.userApi = userApi;
     }
 
     @ApiOperation("hello")
@@ -37,6 +40,14 @@ public class HomeController {
     String accessService() {
         ServiceInstance instance = loadBalancerClient.choose("USER-SERVICE");
         return instance.getHost() + instance.getPort() + template.getForObject("http://USER-SERVICE/", String.class);
+    }
+
+    /**
+     * 通过openfeign组件调用服务
+     */
+    @GetMapping("/feign")
+    String feign() {
+        return userApi.test();
     }
 
 }
