@@ -1,0 +1,6 @@
+cn:
+  coderstory:
+    name: coderstory
+    age: 27
+    number: ${random.int}
+    uuid: ${random.uuid}}
