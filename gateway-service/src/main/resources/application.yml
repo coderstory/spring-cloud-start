@@ -1,0 +1,25 @@
+server:
+  port: 8000
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          # 是否启用默认转发规则  规则 ->/服务名/请求路径
+          enabled: true
+          # 默认服务名不改成大写
+          lowerCaseServiceId: true
+      routes:
+        # /web/**的都转发到web-service 并去掉/web前缀
+        - id: web-service
+          uri: lb://web-service
+          predicates:
+            - Path=/web/**
+          filters:
+            - StripPrefix=1
+  application:
+    name: gate-service
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

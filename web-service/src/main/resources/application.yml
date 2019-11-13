@@ -1,5 +1,5 @@
 server:
-  port: 8741
+  port: 8002
 mybatis:
   mapper-locations: classpath:mapper/*.xml
 spring:
