@@ -1,5 +1,5 @@
 # Configuration for actuator
-# Access url :  http://127.0.0.14:8877/actuator
+# Access url :  http://127.0.0.14:8002/actuator
 management:
   endpoint:
     health:
@@ -10,8 +10,6 @@ management:
     web:
       exposure:
         include: "*"
-  server:
-    port: 8877
 spring:
   redis:
     host: 127.0.0.1
@@ -22,8 +20,4 @@ spring:
         max-active: 8
         max-wait: -1
         max-idle: 500
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
 

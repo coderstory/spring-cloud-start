@@ -1,13 +1,30 @@
 server:
   port: 8001
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
+management:
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        hostname: ${spring.cloud.client.ip-address}
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 15s
+        ip-address: true
+        instanceId: ${spring.application.name}:${spring.cloud.client.ipaddress}:${server.port}
+        tags: ${spring.profiles.active}
   application:
     name: user-service
   datasource:
-    username: root
-    password: abc123
-    url: jdbc:mysql://localhost:3306/springboot?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    username: rc_dev_all
+    password: rc_dev_all
+    url: jdbc:mysql://172.16.10.244:3306/springboot?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC

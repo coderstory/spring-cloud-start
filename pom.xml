@@ -20,10 +20,8 @@
     </properties>
 
     <modules>
-        <module>eureka-service</module>
         <module>web-service</module>
         <module>user-service</module>
-        <module>zuul-service</module>
         <module>gateway-service</module>
     </modules>
     <dependencyManagement>
