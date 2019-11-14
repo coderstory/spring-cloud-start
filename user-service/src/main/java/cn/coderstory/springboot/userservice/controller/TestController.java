@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
     @GetMapping("test")
     String test() {
-        return "just a test api for user-service";
+        return "just a test api from user-service";
     }
 }

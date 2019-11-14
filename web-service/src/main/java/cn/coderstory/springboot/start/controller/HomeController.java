@@ -38,8 +38,8 @@ public class HomeController {
      */
     @GetMapping("/access")
     String accessService() {
-        ServiceInstance instance = loadBalancerClient.choose("USER-SERVICE");
-        return instance.getHost() + instance.getPort() + template.getForObject("http://USER-SERVICE/", String.class);
+        ServiceInstance instance = loadBalancerClient.choose("user-service");
+        return instance.getHost() + ":" + instance.getPort() + " => " + template.getForObject("http://user-service/test", String.class);
     }
 
     /**
