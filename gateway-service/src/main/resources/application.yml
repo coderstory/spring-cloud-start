@@ -11,6 +11,8 @@ management:
       exposure:
         include: "*"
 spring:
+  application:
+    name: gate-service
   profiles:
     active: dev
   cloud:
@@ -22,8 +24,10 @@ spring:
         healthCheckPath: /actuator/health
         healthCheckInterval: 15s
         ip-address: true
-        instanceId: ${spring.application.name}:${spring.cloud.client.ipaddress}:${server.port}
+        instance-id: ${spring.application.name}:${spring.cloud.client.ipaddress}:${server.port}
         tags: ${spring.profiles.active}
+        service-name: ${spring.application.name}
+
     gateway:
       discovery:
         locator:
@@ -39,5 +43,3 @@ spring:
             - Path=/web/**
           filters:
             - StripPrefix=1
-  application:
-    name: gate-service

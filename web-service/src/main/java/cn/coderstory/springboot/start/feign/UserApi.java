@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @FeignClient(value = "user-service", configuration = FeignConfig.class)
 public interface UserApi {
-    @GetMapping("/")
+    @GetMapping("/test")
     String test();
 }

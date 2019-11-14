@@ -22,9 +22,10 @@ spring:
         ip-address: true
         instanceId: ${spring.application.name}:${spring.cloud.client.ipaddress}:${server.port}
         tags: ${spring.profiles.active}
+        service-name: ${spring.application.name}
   application:
     name: user-service
   datasource:
     username: rc_dev_all
-    password: rc_dev_all
-    url: jdbc:mysql://172.16.10.244:3306/springboot?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    password: 6TjKFG9M746S
+    url: jdbc:mysql://172.16.10.244:3306/rc_dev_cust_test_data?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
