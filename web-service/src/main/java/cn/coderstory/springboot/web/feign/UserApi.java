@@ -1,6 +1,6 @@
-package cn.coderstory.springboot.start.feign;
+package cn.coderstory.springboot.web.feign;
 
-import cn.coderstory.springboot.start.configure.FeignConfig;
+import cn.coderstory.springboot.web.configure.FeignConfig;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 

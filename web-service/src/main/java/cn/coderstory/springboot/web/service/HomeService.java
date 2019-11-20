@@ -1,4 +1,4 @@
-package cn.coderstory.springboot.start.service;
+package cn.coderstory.springboot.web.service;
 
 import org.springframework.stereotype.Service;
 

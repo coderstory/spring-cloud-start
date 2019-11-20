@@ -1,4 +1,4 @@
-package cn.coderstory.springboot.start.util;
+package cn.coderstory.springboot.web.util;
 
 import org.springframework.stereotype.Component;
 

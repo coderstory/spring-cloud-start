@@ -1,4 +1,4 @@
-package cn.coderstory.springboot.start.mapper;
+package cn.coderstory.springboot.web.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

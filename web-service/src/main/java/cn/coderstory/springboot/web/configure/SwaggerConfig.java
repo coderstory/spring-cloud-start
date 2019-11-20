@@ -1,4 +1,4 @@
-package cn.coderstory.springboot.start.configure;
+package cn.coderstory.springboot.web.configure;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package cn.coderstory.springboot.start.configure;
+package cn.coderstory.springboot.web.configure;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,4 +1,4 @@
-package cn.coderstory.springboot.start.configure;
+package cn.coderstory.springboot.web.configure;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;

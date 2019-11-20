@@ -1,7 +1,7 @@
-package cn.coderstory.springboot.start.controller;
+package cn.coderstory.springboot.web.controller;
 
-import cn.coderstory.springboot.start.configure.TestConfigBean;
-import cn.coderstory.springboot.start.feign.UserApi;
+import cn.coderstory.springboot.web.configure.TestConfigBean;
+import cn.coderstory.springboot.web.feign.UserApi;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.ServiceInstance;
