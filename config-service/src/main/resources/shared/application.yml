@@ -1,0 +1,5 @@
+test:
+  result: 1
+feign:
+  okhttp:
+    enabled: true

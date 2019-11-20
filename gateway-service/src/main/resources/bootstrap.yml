@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: gateway-service
+  cloud:
+    config:
+      uri: http://localhost:8004
+      fail-fast: true
