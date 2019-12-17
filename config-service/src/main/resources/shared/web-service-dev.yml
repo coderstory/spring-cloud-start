@@ -1,15 +1,5 @@
 # Configuration for actuator
 # Access url :  http://127.0.0.14:8002/actuator
-management:
-  endpoint:
-    health:
-      show-details: always
-    shutdown:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: "*"
 spring:
   redis:
     host: 127.0.0.1

@@ -1,30 +1,6 @@
 server:
   port: 8001
-management:
-  endpoint:
-    health:
-      show-details: always
-    shutdown:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: "*"
 spring:
-  cloud:
-    consul:
-      host: localhost
-      port: 8500
-      discovery:
-        hostname: ${spring.cloud.client.ip-address}
-        healthCheckPath: /actuator/health
-        healthCheckInterval: 15s
-        ip-address: true
-        instanceId: ${spring.application.name}:${spring.cloud.client.ipaddress}:${server.port}
-        tags: ${spring.profiles.active}
-        service-name: ${spring.application.name}
-  application:
-    name: user-service
   datasource:
     username: rc_dev_all
     password: 6TjKFG9M746S

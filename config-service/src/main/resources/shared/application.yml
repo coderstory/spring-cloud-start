@@ -1,4 +1,12 @@
 spring:
+  boot:
+    admin:
+      enabled: true
+      client:
+        instance:
+          name: ${spring.application.name}
+          prefer-ip: true
+        url: http://127.0.0.1:8003
   zipkin:
     base-url: http://localhost:9411
   sleuth:
@@ -7,6 +15,40 @@ spring:
         enabled: true
     sampler:
       probability: 1.0
+  datasource:
+    username: rc_dev_all
+    password: 6TjKFG9M746S
+    url: jdbc:mysql://172.16.10.244:3306/rc_dev_cust_test_data?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        hostname: ${spring.cloud.client.ip-address}
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 15s
+        ip-address: true
+        instanceId: ${spring.application.name}:${spring.cloud.client.ipaddress}:${server.port}
+        tags: ${spring.profiles.active}
+        service-name: ${spring.application.name}
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
 feign:
+  client:
+    config:
+      default:
+        connect-timeout: 10000
+        read-timeout: 10000
   okhttp:
     enabled: true
+management:
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
