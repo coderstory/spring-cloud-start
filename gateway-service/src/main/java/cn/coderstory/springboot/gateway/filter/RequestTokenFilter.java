@@ -7,11 +7,13 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-@Component
+/**
+ * 所有不带token的request全部返回401
+ */
+//@Component
 public class RequestTokenFilter implements GlobalFilter, Ordered {
     private static final Logger log = LoggerFactory.getLogger(RequestTokenFilter.class);
 
