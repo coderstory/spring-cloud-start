@@ -27,4 +27,4 @@
 > 8. alibaba nacos
 >   - nacos是spring cloud alibaba全家桶系列中的一个组件，可实现服务发现和配置版本管理
 >   - 可以替代eurka和spring cloud config这两个组件，且提供了友好的web管理界面。
->   - 默认访问地址为 http://localhost:8848/
+>   - 默认访问地址为 http://localhost:8848/nacos/index.html 
