@@ -1,6 +1,6 @@
 #FileLock
-#Wed Dec 18 14:41:51 CST 2019
+#Fri Dec 20 13:15:45 CST 2019
 hostName=windows10.microdone.cn
-id=16f17bdc0de957659a3f22a27784996fe854cc77e69
+id=16f21bba44565c5398ed71f98f95f09613222acdf09
 method=file
-server=172.16.10.144\:49919
+server=172.16.10.144\:51547

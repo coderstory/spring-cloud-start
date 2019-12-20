@@ -17,12 +17,14 @@
 >     euraka是微服务项目所必须的组件，实现不同微服务之间的关联互访。
 > 4. 使用Feign和RestTemplate实现服务间通信
 >   - 每个微服务都不是独立存在的，总会有那么一些需求需要在一个服务内访问其他的服务。
-> 5. spring cloud gateway & consul作为网关和服务发现和注册中心[master分支代码]
+> 5. spring cloud gateway 作为网关
 >   - 作为zuul的替代者,gateway具有更好的吞吐性能,默认基于服务名转发请求，几乎实现了zuul的全部功能.
->   - 使用consul也是大势所趋,euraka开源代码不再更新.但不使用consul作为配置中心.
->   - consul使用命令consul agent -dev开发模式启动
 > 6. spring cloud sleuth & zipkin
 >   - 在微服务中链路追踪是必不可少的，它可以让你了解请求在微服务内部之间的调用关系。zipkin的jar包[Zipkin Server]可以去maven中央仓库下载
->   - zipkin的web界面默认访问地址:http://127.0.0.1:9411/
+>   - zipkin的web界面默认访问地址: http://127.0.0.1:9411/
 > 7. spring boot admin
 >   - 用于监控微服务实例
+> 8. alibaba nacos
+>   - nacos是spring cloud alibaba全家桶系列中的一个组件，可实现服务发现和配置版本管理
+>   - 可以替代eurka和spring cloud config这两个组件，且提供了友好的web管理界面。
+>   - 默认访问地址为 http://localhost:8848/
