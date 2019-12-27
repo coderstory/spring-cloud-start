@@ -1,20 +1,20 @@
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    #schema: classpath:db/schema.sql #£¬Ã¿´ÎÆô¶¯³ÌĞò£¬³ÌĞò¶¼»áÔËĞĞschema.sqlÎÄ¼ş£¬¶ÔÊı¾İ¿âµÄÊı¾İ²Ù×÷
-    #data: classpath:db/data.sql #£¬Ã¿´ÎÆô¶¯³ÌĞò£¬³ÌĞò¶¼»áÔËĞĞdata.sqlÎÄ¼ş£¬¶ÔÊı¾İ¿âµÄÊı¾İ²Ù×÷
-    url: jdbc:h2:file:./db/security-service;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1 # ÎÄ¼şÄ£Ê½
-    # spring.datasource.url=jdbc:h2:mem:hello #ÄÚ´æÄ£Ê½
+    #schema: classpath:db/schema.sql #ï¼Œæ¯æ¬¡å¯åŠ¨ç¨‹åºï¼Œç¨‹åºéƒ½ä¼šè¿è¡Œschema.sqlæ–‡ä»¶ï¼Œå¯¹æ•°æ®åº“çš„æ•°æ®æ“ä½œ
+    #data: classpath:db/data.sql #ï¼Œæ¯æ¬¡å¯åŠ¨ç¨‹åºï¼Œç¨‹åºéƒ½ä¼šè¿è¡Œdata.sqlæ–‡ä»¶ï¼Œå¯¹æ•°æ®åº“çš„æ•°æ®æ“ä½œ
+    url: jdbc:h2:file:./db/security-service;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1 # æ–‡ä»¶æ¨¡å¼
+    # spring.datasource.url=jdbc:h2:mem:hello #å†…å­˜æ¨¡å¼
     username: sa
     password: sa
   h2:
     console:
-      enabled: true #¿ªÆôweb console¹¦ÄÜ
+      enabled: true #å¼€å¯web consoleåŠŸèƒ½
       settings:
         web-allow-others: true
   security:
     user:
-      # ÅäÖÃÄ¬ÈÏÕËºÅÃÜÂë
+      # é…ç½®HTTPåŸºæœ¬è®¤è¯çš„é»˜è®¤è´¦å·å¯†ç 
       name: test
       password: test
 server:
