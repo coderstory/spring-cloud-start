@@ -1,8 +1,8 @@
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    #schema: classpath:db/schema.sql #，每次启动程序，程序都会运行schema.sql文件，对数据库的数据操作
-    #data: classpath:db/data.sql #，每次启动程序，程序都会运行data.sql文件，对数据库的数据操作
+    schema: classpath:db/schema.sql #，每次启动程序，程序都会运行schema.sql文件，对数据库的数据操作
+    data: classpath:db/data.sql #，每次启动程序，程序都会运行data.sql文件，对数据库的数据操作
     url: jdbc:h2:file:./db/security-service;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1 # 文件模式
     # spring.datasource.url=jdbc:h2:mem:hello #内存模式
     username: sa
@@ -13,10 +13,10 @@ spring:
       settings:
         web-allow-others: true
   security:
-    user:
-      # 配置HTTP基本认证的默认账号密码
-      name: test
-      password: test
+  #user:
+  # 配置HTTP基本认证的默认账号密码
+  # name: test
+  # password: test
 server:
   port: 8751
 mybatis:

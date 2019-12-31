@@ -4,4 +4,7 @@
     <select id="findById" resultType="cn.coderstory.springboot.security.model.UserModel">
         select *  from user where id = #{id}
     </select>
+    <select id="findByUserName" resultType="cn.coderstory.springboot.security.model.UserDetails">
+        select *  from user where username = #{username}
+    </select>
 </mapper>
