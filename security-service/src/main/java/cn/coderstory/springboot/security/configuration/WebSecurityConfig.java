@@ -1,19 +1,36 @@
 package cn.coderstory.springboot.security.configuration;
 
+import cn.coderstory.springboot.security.authentication.VerificationCodeFilter;
+import cn.coderstory.springboot.security.service.UserDetailsService;
+import com.google.code.kaptcha.Producer;
+import com.google.code.kaptcha.impl.DefaultKaptcha;
+import com.google.code.kaptcha.util.Config;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import javax.annotation.Resource;
-import javax.sql.DataSource;
+import java.util.Properties;
 
+@AllArgsConstructor
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Resource
-    private DataSource dataSource;
+
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
+    private AuthenticationFailureHandler authenticationFailureHandler;
+    private VerificationCodeFilter verificationCodeFilter;
+    private AuthenticationProvider authenticationProvider;
+    private UserDetailsService userDetailsService;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider);
+    }
 
     /**
      * based authentication
@@ -28,8 +45,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/admin/api/**").hasRole("ADMIN")
                 .antMatchers("/user/api/**").hasRole("USER")
-                .antMatchers("/app/api").permitAll()
+                .antMatchers("/app/api/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/js/**.js", "/css/**.css", "/favicon.ico").permitAll()
                 // url 匹配 所有请求
                 .anyRequest()
                 // 需要授权才能访问
@@ -40,44 +58,40 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 // 登入页面url 默认为“/login”
                 .loginPage("/login.html")
-                .permitAll()
+                .defaultSuccessUrl("/")
                 .loginProcessingUrl("/login")
+                .permitAll()
                 // 用户登入成功事件处理器 可修改返回内容
-                .successHandler(
-                        (httpServletRequest, httpServletResponse, authentication) ->
-                                httpServletResponse.getWriter().write(" login success"))
+                .successHandler(authenticationSuccessHandler)
                 // 用户登入失败事件处理器 可修改返回内容
-                .failureHandler((httpServletRequest, httpServletResponse, e) -> {
-                    httpServletResponse.setContentType("application/json;charset=UTF-8");
-                    httpServletResponse.getWriter().write(e.getClass() + "\r\n" + e.getMessage());
-                })
+                .failureHandler(authenticationFailureHandler)
                 .and()
                 .csrf().disable()
-                .headers().frameOptions().disable();
+                .headers().frameOptions().disable()
+                .and()
+                .rememberMe().userDetailsService(userDetailsService)
+                .key("wqd2qw!23513dd(*&^");
+
+        // 将过滤器添加在UsernamePasswordAuthenticationFilter之前
+        // http.addFilterBefore(verificationCodeFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
-    /**
-     * @Bean public UserDetailsService userDetailsService() {
-     * // 自带的用户和权限表比较简陋 不适合使用 创建sql直接ctrl+n 搜索 user.ddl
-     * JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
-     * 基于内存的无法长久存储和也很难维护
-     * InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-     * manager.createUser(
-     * User.withUsername("admin")
-     * .password(passwordEncoder().encode("admin"))
-     * .roles("ADMIN", "USER")
-     * .build());
-     * manager.createUser(
-     * User.withUsername("user")
-     * .password(passwordEncoder().encode("user"))
-     * .roles("USER")
-     * .build());
-     * return manager;
-     * }
-     **/
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(10);
+    public Producer captcha() {
+        Properties properties = new Properties();
+        properties.setProperty("kaptcha.image.width", "150");
+        properties.setProperty("kaptcha.image.height", "40");
+        properties.setProperty("kaptcha.textproducer.char.string", "1234567890");
+        properties.setProperty("kaptcha.textproducer.char.length", "6");
+        properties.setProperty("kaptcha.textproducer.font.size", "40");
+        properties.setProperty("kaptcha.session.key", "code");
+        properties.setProperty("kaptcha.textproducer.font.names", "宋体,楷体,微软雅黑");
+        properties.setProperty("kaptcha.border", "yes");
+        Config config = new Config(properties);
+        DefaultKaptcha kaptcha = new DefaultKaptcha();
+        kaptcha.setConfig(config);
+        return kaptcha;
     }
+
 }

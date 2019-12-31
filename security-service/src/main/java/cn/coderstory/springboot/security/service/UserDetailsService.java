@@ -20,6 +20,11 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDetails user = mapper.findByUserName(username);
+        if (user == null) {
+            // AbstractUserDetailsAuthenticationProvider.java Line 151
+            // 默认会隐藏用户名错误异常 而改成用户名或密码错误异常 可定制一个bean覆盖下配置
+            throw new UsernameNotFoundException("指定账户不存在");
+        }
         user.setAuthorities(authorityMapper.getAuthoritiesByUserId(user.getId()));
         return user;
     }
