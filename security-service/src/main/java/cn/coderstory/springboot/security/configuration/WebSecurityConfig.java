@@ -5,32 +5,47 @@ import cn.coderstory.springboot.security.service.UserDetailsService;
 import com.google.code.kaptcha.Producer;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
-import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
+import javax.annotation.Resource;
 import java.util.Properties;
 
-@AllArgsConstructor
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Resource
     private AuthenticationSuccessHandler authenticationSuccessHandler;
+    @Resource
     private AuthenticationFailureHandler authenticationFailureHandler;
+    @Resource
     private VerificationCodeFilter verificationCodeFilter;
+    @Resource
     private AuthenticationProvider authenticationProvider;
+    @Resource
     private UserDetailsService userDetailsService;
+    @Resource
+    private SessionRegistry sessionRegistry;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider);
     }
+
+    @Bean
+    public SessionRegistry getSessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+
 
     /**
      * based authentication
@@ -70,10 +85,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                 .rememberMe().userDetailsService(userDetailsService)
-                .key("wqd2qw!23513dd(*&^");
+                .key("wqd2qw!23513dd(*&^")
+                .and()
+                // 限制每个用户只能存在一个session
+                .sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true).sessionRegistry(sessionRegistry);
 
         // 将过滤器添加在UsernamePasswordAuthenticationFilter之前
         // http.addFilterBefore(verificationCodeFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
     }
 
 
